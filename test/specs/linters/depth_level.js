@@ -67,6 +67,19 @@ describe('lesshint', function () {
                 expect(result).to.be.undefined;
             });
         });
+
+        it('should allow styles nested with less than 4 levels of depth with mixins.', function () {
+            const source = '.foo { color: red; .foo-2 { .mixin-2(); color: red; .foo-mixin-3({ .mixin-3(); width: 100%; }); } }';
+            const options = {
+                depth: 3
+            };
+
+            return spec.parse(source, function (ast) {
+                const result = spec.linter.lint(options, ast.root.first);
+
+                expect(result).to.be.undefined;
+            });
+        });
     });
 
 });
