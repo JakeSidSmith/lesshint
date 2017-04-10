@@ -6,7 +6,18 @@ const spec = require('../util.js').setup();
 describe('lesshint', function () {
     describe('#depthLevel()', function () {
         it('should have the proper node types', function () {
-            const source = '.foo { color: red; .foo-2 { color: red; .foo-3 { width: 100%; } } }';
+            const source =
+            `.foo {
+                color: red;
+
+                .foo-2 {
+                    color: red;
+
+                    .foo-3 {
+                        width: 100%;
+                    }
+                }
+            }`;
 
             return spec.parse(source, function (ast) {
                 expect(spec.linter.nodeTypes).to.include(ast.root.first.type);
@@ -14,7 +25,20 @@ describe('lesshint', function () {
         });
 
         it('should have the proper node types with mixins', function () {
-            const source = '.foo { color: red; .foo-2 { .mixin-2(); color: red; .foo-mixin-3({ .mixin-3(); width: 100%; }); } }';
+            const source =
+            `.foo {
+                color: red;
+
+                .foo-2 {
+                    .mixin-2();
+                    color: red;
+
+                    .foo-mixin-3({
+                        .mixin-3();
+                        width: 100%;
+                    });
+                }
+            }`;
 
             return spec.parse(source, function (ast) {
                 expect(spec.linter.nodeTypes).to.include(ast.root.first.type);
@@ -22,7 +46,23 @@ describe('lesshint', function () {
         });
 
         it('should not allow styles nested with more than 3 levels of depth.', function () {
-            const source = '.foo { color: red; .foo-2 { color: red; .foo-3 { width: 100%; .foo-4 { height: 100%; } } } }';
+            const source =
+            `.foo {
+                color: red;
+
+                .foo-2 {
+                    color: red;
+
+                    .foo-3 {
+                        width: 100%;
+
+                        .foo-4 {
+                            height: 100%;
+                        }
+                    }
+                }
+            }`;
+
             const expected = [{
                 message: "There shouldn't be more than '3' levels deep from the style's parent, check the children's depth."
             }];
@@ -39,7 +79,26 @@ describe('lesshint', function () {
         });
 
         it('should not allow styles nested with more than 3 levels of depth with mixins.', function () {
-            const source = '.foo { color: red; .foo-2 { .mixin-2(); color: red; .foo-mixin-3 ({ .mixin-3(); width: 100%; .foo-mixin-4({ .mixin-4(); height: 100%; }); }); } }';
+            const source =
+            `.foo {
+                color: red;
+
+                .foo-2 {
+                    .mixin-2();
+                    color: red;
+
+                    .foo-mixin-3({
+                        .mixin-3();
+                        width: 100%;
+
+                        .foo-mixin-4({
+                            .mixin-4();
+                            height: 100%;
+                        });
+                    });
+                }
+            }`;
+
             const expected = [{
                 message: "There shouldn't be more than '3' levels deep from the style's parent, check the children's depth."
             }];
@@ -56,7 +115,19 @@ describe('lesshint', function () {
         });
 
         it('should allow styles nested with less than 4 levels of depth.', function () {
-            const source = '.foo { color: red; .foo-2 { color: red; .foo-3 { width: 100%; } } }';
+            const source =
+            `.foo {
+                color: red;
+
+                .foo-2 {
+                    color: red;
+
+                    .foo-3 {
+                        width: 100%;
+                    }
+                }
+            }`;
+
             const options = {
                 depth: 3
             };
@@ -69,7 +140,21 @@ describe('lesshint', function () {
         });
 
         it('should allow styles nested with less than 4 levels of depth with mixins.', function () {
-            const source = '.foo { color: red; .foo-2 { .mixin-2(); color: red; .foo-mixin-3({ .mixin-3(); width: 100%; }); } }';
+            const source =
+            `.foo {
+                color: red;
+
+                .foo-2 {
+                    .mixin-2();
+                    color: red;
+
+                    .foo-mixin-3({
+                        .mixin-3();
+                        width: 100%;
+                    });
+                }
+            }`;
+
             const options = {
                 depth: 3
             };
