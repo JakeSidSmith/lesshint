@@ -13,6 +13,14 @@ describe('lesshint', function () {
             });
         });
 
+        it('should have the proper node types with mixins', function () {
+            const source = '.foo { color: red; .foo-2 { .mixin-2(); color: red; .foo-mixin-3({ .mixin-3(); width: 100%; }) } }';
+
+            return spec.parse(source, function (ast) {
+                expect(spec.linter.nodeTypes).to.include(ast.root.first.type);
+            });
+        });
+
         it('should not allow styles nested with more than 3 levels of depth.', function () {
             const source = '.foo { color: red; .foo-2 { color: red; .foo-3 { width: 100%; .foo-4 { height: 100%; } } } }';
             const expected = [{
