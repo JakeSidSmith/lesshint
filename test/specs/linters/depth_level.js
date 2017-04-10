@@ -24,7 +24,7 @@ describe('lesshint', function () {
             });
         });
 
-        it('should have the proper node types with mixins', function () {
+        it('should have the proper node types including mixins', function () {
             const source =
             `.foo {
                 color: red;
@@ -45,7 +45,7 @@ describe('lesshint', function () {
             });
         });
 
-        it('should not allow styles nested with more than 3 levels of depth.', function () {
+        it('should not allow styles nested with more than 3 levels of depth', function () {
             const source =
             `.foo {
                 color: red;
@@ -64,7 +64,7 @@ describe('lesshint', function () {
             }`;
 
             const expected = [{
-                message: "There shouldn't be more than '3' levels deep from the style's parent, check the children's depth."
+                message: "There shouldn't be more than '3' levels deep from the style's parent, check the children's depth"
             }];
 
             const options = {
@@ -78,7 +78,7 @@ describe('lesshint', function () {
             });
         });
 
-        it('should not allow styles nested with more than 3 levels of depth with mixins.', function () {
+        it('should not allow styles nested with more than 3 levels of depth including mixins', function () {
             const source =
             `.foo {
                 color: red;
@@ -100,7 +100,7 @@ describe('lesshint', function () {
             }`;
 
             const expected = [{
-                message: "There shouldn't be more than '3' levels deep from the style's parent, check the children's depth."
+                message: "There shouldn't be more than '3' levels deep from the style's parent, check the children's depth"
             }];
 
             const options = {
@@ -114,7 +114,7 @@ describe('lesshint', function () {
             });
         });
 
-        it('should allow styles nested with less than 4 levels of depth.', function () {
+        it('should allow styles nested with less than 4 levels of depth', function () {
             const source =
             `.foo {
                 color: red;
@@ -139,7 +139,7 @@ describe('lesshint', function () {
             });
         });
 
-        it('should allow styles nested with less than 4 levels of depth with mixins.', function () {
+        it('should allow styles nested with less than 4 levels of depth including mixins', function () {
             const source =
             `.foo {
                 color: red;
