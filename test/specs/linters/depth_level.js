@@ -64,7 +64,7 @@ describe('lesshint', function () {
             }`;
 
             const expected = [{
-                message: "There shouldn't be more than '3' levels deep from the style's parent, check the children's depth"
+                message: "There shouldn't be more than '3' levels deep from the style's parent, check the children's depth."
             }];
 
             const options = {
@@ -100,7 +100,7 @@ describe('lesshint', function () {
             }`;
 
             const expected = [{
-                message: "There shouldn't be more than '3' levels deep from the style's parent, check the children's depth"
+                message: "There shouldn't be more than '3' levels deep from the style's parent, check the children's depth."
             }];
 
             const options = {
